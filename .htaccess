@@ -1,0 +1,41 @@
+# Auction System - Apache Configuration
+
+# Enable mod_rewrite
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /auction-system/
+
+    # Protect files and directories from access
+    <Files "^\.">
+        Order allow,deny
+        Deny from all
+    </Files>
+
+    # Don't rewrite actual files or directories
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Direct requests to existing files/directories
+    RewriteCond %{REQUEST_URI} ^/(.*)$
+    RewriteRule ^.*$ - [L]
+</IfModule>
+
+# Security headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# PHP Configuration
+<IfModule mod_php.c>
+    php_value max_upload_filesize 5M
+    php_value post_max_size 5M
+    php_value memory_limit 128M
+    php_value max_execution_time 30
+</IfModule>
+
+# Disable directory browsing
+<IfModule mod_autoindex.c>
+    Options -Indexes
+</IfModule>

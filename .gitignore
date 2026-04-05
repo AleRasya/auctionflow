@@ -1,0 +1,22 @@
+# Project-specific
+uploads/*
+!uploads/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+.env
+.env.local
+*.log
+
+# Database
+*.sql.bak
+
+# Cache
+.cache/
